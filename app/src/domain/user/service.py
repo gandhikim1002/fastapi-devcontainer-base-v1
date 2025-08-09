@@ -1,5 +1,4 @@
 import uuid
-# from sqlalchemy.orm import Session
 from sqlmodel import Session, select
 
 from app.src.domain.user import models as user_models

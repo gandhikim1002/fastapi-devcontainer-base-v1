@@ -42,3 +42,11 @@ def read_item_test(item_id: uuid.UUID, db: Session = Depends(get_db)):
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = service.get_items(db, skip=skip, limit=limit)
     return items
+
+
+@router.delete("/{item_id}", response_model=bool)
+def delete_user(item_id: uuid.UUID, db: Session = Depends(get_db)):
+    db_item = service.get_item(db, item_id=item_id)
+    if db_item is None:
+        raise HTTPException(status_code=404, detail="Item not found")
+    return service.remove_item(db, db_item=item_models.Item)
