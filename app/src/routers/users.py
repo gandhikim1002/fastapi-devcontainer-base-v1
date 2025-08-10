@@ -44,7 +44,7 @@ def delete_user(user_id: uuid.UUID, db: Session = Depends(get_db)):
     db_user = service.get_user(db, user_id=user_id)
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return service.remove_user(db, db_user=user_models.User)
+    return service.remove_user(db, db_user=db_user)
 
 
 @router.post("/users/{user_id}/items/", response_model=item_models.Item)

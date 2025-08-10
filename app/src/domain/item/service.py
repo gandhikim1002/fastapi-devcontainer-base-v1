@@ -21,7 +21,7 @@ def create_user_item(db: Session, item: item_models.ItemCreate, user_id: uuid.UU
     return db_item
 
 
-def remove_teim(db: Session, db_item: item_models.Item):
+def remove_item(db: Session, db_item: item_models.Item):
     db.delete(db_item)
     db.commit
     return True
