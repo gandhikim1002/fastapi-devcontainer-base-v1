@@ -42,5 +42,13 @@ def read_root():
 * pip install PyJWT
 * pip install pydantic[email]
 * requirements.txt.1
-* 
+* pip install "passlib[bcrypt]"
+* requirements.txt.2
+** error
+ersion = _bcrypt.__about__.__version__ 
+>> version = _bcrypt.__version__
 
+### todo list
+* test module hero OK
+* add logger holding
+* fake_hashed_password 

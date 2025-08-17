@@ -10,9 +10,12 @@ SELLER_DOES_NOT_EXIST_ERROR = "seller does not exist"
 SALES_DOES_NOT_EXIST_ERROR = "sale does not exist"
 USER_DOES_NOT_EXIST_ERROR = "user does not exist"
 ITEM_DOES_NOT_EXIST_ERROR = "item does not exist"
+HERO_DOES_NOT_EXIST_ERROR = "hero does not exist"
+
 
 # Errors already exists
 STOCK_ALREADY_EXISTS_ERROR = "stock already exist"
+
 
 # Errors Out of Stock
 STOCK_OUT_OF_STOCK_ERROR = "out of stock"
