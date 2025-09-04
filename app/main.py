@@ -30,6 +30,10 @@ app.add_middleware(
 
 app.add_exception_handler(HTTPException, http_error_handler)
 
+# @app.get("/")
+# def index():
+#     return {"Hello": "World"}
+
 app.include_router(router_api, prefix=API_PREFIX)
 
 app.include_router(

@@ -47,8 +47,10 @@ def read_root():
 ** error
 ersion = _bcrypt.__about__.__version__ 
 >> version = _bcrypt.__version__
+* pip install validators
+* requirements.txt.3
 
 ### todo list
 * test module hero OK
-* add logger holding
-* fake_hashed_password 
+* fake_hashed_password OK
+* add logger and file logging and daily rotation
