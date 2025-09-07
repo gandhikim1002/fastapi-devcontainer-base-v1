@@ -1,9 +1,11 @@
 import jwt
-from fastapi import Header, HTTPException
+from fastapi import Header, HTTPException, Depends
+from typing import Annotated
 
 from sqlmodel import Session
 from app.src.database import engine
 from app.src.config import SECRET_KEY, ALGORITHM
+from collections.abc import Generator
 
 
 def decode(token):
@@ -22,6 +24,13 @@ def get_db2():
         yield db
     finally:
         db.close()
+
+
+def get_db3() -> Generator[Session, None, None]:
+    with Session(engine) as session:
+        yield session
+
+SessionDep = Annotated[Session, Depends(get_db3)]
 
 
 async def get_token_header(x_token: str = Header(...)):

@@ -9,7 +9,7 @@ from app.src.config import API_PREFIX, ALLOWED_HOSTS
 from app.src.internal import admin
 from app.src.dependencies import get_token_header
 from app.src.routers.handlers.http_error import http_error_handler
-
+from app.src.custom_route import CustomRoute
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,7 +18,10 @@ async def lifespan(app: FastAPI):
     yield
     print('shutdown app')
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    lifespan=lifespan, 
+    route_class=CustomRoute
+)
 
 app.add_middleware(
     CORSMiddleware,
@@ -30,9 +33,9 @@ app.add_middleware(
 
 app.add_exception_handler(HTTPException, http_error_handler)
 
-# @app.get("/")
-# def index():
-#     return {"Hello": "World"}
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
 
 app.include_router(router_api, prefix=API_PREFIX)
 
@@ -41,6 +44,13 @@ app.include_router(
     prefix="/admin",
     tags=["admin"],
     dependencies=[Depends(get_token_header)],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+app.include_router(
+    short_url,
+    prefix="/s-url",
+    tags=["s-url"],
     responses={418: {"description": "I'm a teapot"}},
 )
 

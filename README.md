@@ -52,5 +52,5 @@ ersion = _bcrypt.__about__.__version__
 
 ### todo list
 * test module hero OK
+* add logger holding
 * fake_hashed_password OK
-* add logger and file logging and daily rotation

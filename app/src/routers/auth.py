@@ -13,11 +13,11 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 router = APIRouter(tags=["auth"])
 
 
-def verify_password(plain_password, hashed_password):
+def verify_password(plain_password, hashed_password) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
 
-def get_password_hash(password):
+def get_password_hash(password) -> str:
     return pwd_context.hash(password)
 
 
@@ -34,7 +34,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
 
 
 @router.post("/login/", response_model=dict)
-def create_user(user: user_models.UserCreate, db: Session = Depends(get_db)):
+def create_user(user: user_models.UserCreate, db: Session = Depends(get_db)) -> str:
     db_user = service.get_user_by_email(db, email=user.email)
     print("db_user[",db_user)
     if db_user and not verify_password(user.password, db_user.hashed_password):
