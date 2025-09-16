@@ -9,3 +9,7 @@ select * from public.urls;
 insert INTO public.urls (long_url,short_code) VALUES ('http://a0.com','0');
 
 drop table urls;
+
+delete from public.urls where 1 = 1;
+
+commit;

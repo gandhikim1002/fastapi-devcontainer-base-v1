@@ -5,7 +5,12 @@ from app.src.s_url.short_url_v2 import id_to_short_url, short_url_to_id
 
 def create_url(db: Session, url: models.UrlCreate):
     with db:
-        db_url_cnt = db.exec(select(func.count()).select_from(models.Url)).one()
+        db_url_cnt = db.exec(select(func.max(models.Url.id))).one_or_none()
+
+        # when init db 
+        if db_url_cnt is None:
+            db_url_cnt = 0
+
         db_url_cnt += 1
         short_code = id_to_short_url(db_url_cnt)
         
