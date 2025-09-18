@@ -12,6 +12,7 @@ from app.src.routers.handlers.http_error import http_error_handler
 from app.src.custom_route import CustomRoute
 from app.src.a_short_url import short_url
 from app.src.b_qr_code import qr_code_routers
+from app.src.c_telegram_bot import telegram_routers
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -60,5 +61,12 @@ app.include_router(
     qr_code_routers.router,
     prefix="/qrcode",
     tags=["qrcode"],
+    responses={418: {"description": "I'm a teapot"}},
+)
+
+app.include_router(
+    telegram_routers.router,
+    prefix="/t_bot",
+    tags=["t_bot"],
     responses={418: {"description": "I'm a teapot"}},
 )

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
 from starlette.responses import StreamingResponse
-from .qr_code_generator import generate_qr_code_image
-
+from fastapi import BackgroundTasks
+from .bot import updater, bot, TOKEN
 
 router = APIRouter()
 
@@ -13,14 +13,40 @@ def test_get():
 # echo test
 # web hook test
 
-@router.get("/{msg}")
-async def get_qr_code(msg: str):
-    image_buffer = generate_qr_code_image(msg)
-    return StreamingResponse(image_buffer, media_type="image/png")
-
 
 @router.post("")
-def get_qr_code(message: str):
-    image_buffer = generate_qr_code_image(message)
-    return StreamingResponse(image_buffer, media_type="image/png")
+def send_message_webhook(message: str) -> str:
+    return "OK"
 
+
+@router.get("/startup")
+async def startup_event():
+    updater.start_polling()
+
+
+@router.post("/webhook")
+async def webhook(update: dict, background_tasks: BackgroundTasks):
+    updater.dispatcher.process_update(update)
+    return "ok"
+
+
+@router.get("/")
+async def read_root():
+    return {"message": "Hello, this is the FastAPI Chatbot server."}
+
+
+
+
+"""
+/CommandHandler > fastapi > action > return 
+
+row http webhook
+
+webhook api
+    fastapi > action > meg
+
+init start
+
+api start
+
+"""
